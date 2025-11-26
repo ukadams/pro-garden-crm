@@ -6,17 +6,37 @@ interface Customer {
     id?: number;
     customer_name: string;
     phone_number: string;
+    address?: string;
+    product_purchased?: string;
+    quantity?: number;
+    total_amount?: number;
+    payment_status?: string;
+    payment_method?: string;
+    delivery_status?: string;
+    notes?: string;
+    customer_type?: string;
+    channel?: string;
+    preferred_product?: string;
+    follow_up_date?: string;
+    purchase_date?: string;
+}
+
+interface CustomerFormData {
+    customer_name: string;
+    phone_number: string;
     address: string;
     product_purchased: string;
     quantity: number;
     total_amount: number;
     payment_status: string;
+    payment_method: string;
     delivery_status: string;
     notes: string;
     customer_type: string;
     channel: string;
     preferred_product: string;
     follow_up_date: string;
+    purchase_date: string;
 }
 
 interface CustomerModalProps {
@@ -28,7 +48,7 @@ interface CustomerModalProps {
 
 export default function CustomerModal({ isOpen, onClose, onSuccess, customerToEdit }: CustomerModalProps) {
     const [isLoading, setIsLoading] = useState(false);
-    const [formData, setFormData] = useState<Customer>({
+    const [formData, setFormData] = useState<CustomerFormData>({
         customer_name: '',
         phone_number: '',
         address: '',
@@ -36,17 +56,35 @@ export default function CustomerModal({ isOpen, onClose, onSuccess, customerToEd
         quantity: 0,
         total_amount: 0,
         payment_status: 'Pending',
+        payment_method: '',
         delivery_status: 'Pending',
         notes: '',
         customer_type: 'New',
         channel: '',
         preferred_product: '',
-        follow_up_date: ''
+        follow_up_date: '',
+        purchase_date: ''
     });
 
     useEffect(() => {
         if (customerToEdit) {
-            setFormData(customerToEdit);
+            setFormData({
+                customer_name: customerToEdit.customer_name || '',
+                phone_number: customerToEdit.phone_number || '',
+                address: customerToEdit.address || '',
+                product_purchased: customerToEdit.product_purchased || '',
+                quantity: customerToEdit.quantity || 0,
+                total_amount: customerToEdit.total_amount || 0,
+                payment_status: customerToEdit.payment_status || 'Pending',
+                payment_method: customerToEdit.payment_method || '',
+                delivery_status: customerToEdit.delivery_status || 'Pending',
+                notes: customerToEdit.notes || '',
+                customer_type: customerToEdit.customer_type || 'New',
+                channel: customerToEdit.channel || '',
+                preferred_product: customerToEdit.preferred_product || '',
+                follow_up_date: customerToEdit.follow_up_date || '',
+                purchase_date: customerToEdit.purchase_date || ''
+            });
         } else {
             setFormData({
                 customer_name: '',
@@ -56,12 +94,14 @@ export default function CustomerModal({ isOpen, onClose, onSuccess, customerToEd
                 quantity: 0,
                 total_amount: 0,
                 payment_status: 'Pending',
+                payment_method: '',
                 delivery_status: 'Pending',
                 notes: '',
                 customer_type: 'New',
                 channel: '',
                 preferred_product: '',
-                follow_up_date: ''
+                follow_up_date: '',
+                purchase_date: ''
             });
         }
     }, [customerToEdit, isOpen]);

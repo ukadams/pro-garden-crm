@@ -46,6 +46,7 @@ interface SalesTrendData {
 interface ExpenseBreakdown {
   category: string;
   amount: number;
+  [key: string]: any;
 }
 
 const COLORS = ["#10b981", "#3b82f6", "#f59e0b", "#ef4444", "#8b5cf6", "#ec4899"];
@@ -269,10 +270,11 @@ export default function DashboardPage() {
                     cx="50%"
                     cy="50%"
                     labelLine={false}
-                    label={({ category, percent }) => `${category}: ${(percent * 100).toFixed(0)}%`}
+                    dataKey="amount"
+                    nameKey="category"
                     outerRadius={100}
                     fill="#8884d8"
-                    dataKey="amount"
+                    label={({ name, percent }) => `${name}: ${((percent || 0) * 100).toFixed(0)}%`}
                   >
                     {expenseBreakdown.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />

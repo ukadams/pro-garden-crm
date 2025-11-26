@@ -34,7 +34,7 @@ export default function Dashboard() {
 
     return (
         <div className="flex min-h-screen bg-gray-50">
-            <Sidebar />
+            {/* Sidebar handled by layout */}
 
             <main className="flex-1 ml-64 p-8">
                 {/* Header */}
