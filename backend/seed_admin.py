@@ -14,8 +14,7 @@ def seed_admin():
         # Check if user exists
         user = get_by_username(db, username)
         if user:
-            print(f"Admin user {username} already exists.")
-            return
+            return f"Admin user {username} already exists."
         
         # Create admin user
         admin_data = UserCreate(
@@ -31,10 +30,10 @@ def seed_admin():
         new_admin.email = email
         db.commit()
         
-        print(f"Successfully created admin user: {username}")
+        return f"Successfully created admin user: {username}"
         
     except Exception as e:
-        print(f"Error seeding admin: {e}")
+        return f"Error seeding admin: {e}"
     finally:
         db.close()
 

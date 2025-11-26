@@ -48,3 +48,9 @@ async def test_auth(current_user = Depends(get_current_user)):
 @app.get("/test-admin")
 async def test_admin(current_user = Depends(get_current_active_admin)):
     return {"message": "Admin access granted", "user": current_user.username}
+
+from seed_admin import seed_admin
+@app.get("/seed-admin")
+def run_seed_admin():
+    result = seed_admin()
+    return {"message": result}
