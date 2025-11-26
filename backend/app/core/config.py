@@ -18,6 +18,12 @@ class Settings:
     # Clean up URL
     if DATABASE_URL:
         DATABASE_URL = DATABASE_URL.strip().strip('"').strip("'")
+        
+        # Remove common prefixes from copy-pasting
+        if DATABASE_URL.startswith("psql "):
+            DATABASE_URL = DATABASE_URL.replace("psql ", "", 1)
+            DATABASE_URL = DATABASE_URL.strip().strip("'") # Clean up again after removing psql
+            
         # Handle Render/Neon postgres:// compatibility
         if DATABASE_URL.startswith("postgres://"):
             DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
