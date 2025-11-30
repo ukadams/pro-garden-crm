@@ -59,8 +59,8 @@ export default function LoginPage() {
                             <Sprout className="h-10 w-10 text-green-500" />
                         </div>
                     </div>
-                    <h1 className="text-2xl font-bold text-white mb-2">ProGarden CRM</h1>
-                    <p className="text-gray-400">Admin Access Portal</p>
+                    <h1 className="text-2xl font-bold text-white mb-2">ProGarden</h1>
+                    <p className="text-gray-400">Admin</p>
                 </div>
 
                 {/* Form */}
