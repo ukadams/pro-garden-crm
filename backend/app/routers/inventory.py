@@ -4,7 +4,7 @@ from typing import List
 
 from app.core.database import get_db
 from app.models.inventory import Inventory
-from app.schemas.inventory import InventoryCreate, InventoryUpdate, InventoryBase
+from app.schemas.inventory import InventoryCreate, InventoryUpdate, InventoryBase, InventoryResponse
 
 
 # -------------------------------------------------------------------
@@ -19,7 +19,7 @@ router = APIRouter(
 # -------------------------------------------------------------------
 # CREATE ITEM
 # -------------------------------------------------------------------
-@router.post("/", response_model=InventoryBase, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=InventoryResponse, status_code=status.HTTP_201_CREATED)
 def create_item(data: InventoryCreate, db: Session = Depends(get_db)):
     item = Inventory(**data.dict())
     db.add(item)
@@ -31,7 +31,7 @@ def create_item(data: InventoryCreate, db: Session = Depends(get_db)):
 # -------------------------------------------------------------------
 # LIST ALL ITEMS
 # -------------------------------------------------------------------
-@router.get("/", response_model=List[InventoryBase])
+@router.get("/", response_model=List[InventoryResponse])
 def list_items(db: Session = Depends(get_db)):
     return db.query(Inventory).all()
 
@@ -39,7 +39,7 @@ def list_items(db: Session = Depends(get_db)):
 # -------------------------------------------------------------------
 # GET SINGLE ITEM
 # -------------------------------------------------------------------
-@router.get("/{item_id}", response_model=InventoryBase)
+@router.get("/{item_id}", response_model=InventoryResponse)
 def get_item(item_id: int, db: Session = Depends(get_db)):
     item = db.query(Inventory).filter(Inventory.id == item_id).first()
     if not item:
@@ -50,7 +50,7 @@ def get_item(item_id: int, db: Session = Depends(get_db)):
 # -------------------------------------------------------------------
 # UPDATE ITEM
 # -------------------------------------------------------------------
-@router.put("/{item_id}", response_model=InventoryBase)
+@router.put("/{item_id}", response_model=InventoryResponse)
 def update_item(item_id: int, data: InventoryUpdate, db: Session = Depends(get_db)):
     item = db.query(Inventory).filter(Inventory.id == item_id).first()
     if not item:
